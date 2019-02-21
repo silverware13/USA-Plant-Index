@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Lifecycle Weather</string>
+    <string name="forecast_for">Forecast for</string>
+    <string name="loading_error_message">Woops.  We couldn\'t load your forecast.  Check your internet connection and try again.</string>
+    <string name="action_share">Share forecast</string>
+    <string name="action_location">Show forecast location</string>
+    <string name="action_settings">Settings</string>
+    <string name="share_chooser_title">Pick an app to share this forecast</string>
+
+    <string name="forecast_item_details">%1$d%2$s - %3$s</string>
+    <string name="forecast_item_low_high_temp">Low: %1$d%3$s   High: %2$d%3$s</string>
+    <string name="forecast_item_wind">Wind: %1$d MPH %2$s</string>
+    <string name="forecast_item_humidity">Humidity: %1$d%%</string>
+    <string name="forecast_item_share_text">Forecast for %1$s, %2$s: %3$d%4$s - %5$s #CS492Weather</string>
+</resources>

@@ -1,0 +1,12 @@
+/Code/.gradle
+/Code/local.properties
+/Code/.idea/caches
+/Code/.idea/libraries
+/Code/.idea/modules.xml
+/Code/.idea/workspace.xml
+/Code/.idea/navEditor.xml
+/Code/.idea/assetWizardSettings.xml
+/Code/build
+/Code/captures
+/Code/.externalNativeBuild
+*.DS_Store
