@@ -5,13 +5,14 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/iv_weather_icon"
+        android:id="@+id/iv_plant_pic"
         android:padding="4dp"
         android:layout_width="128dp"
         android:layout_height="128dp" />
 
     <TextView
-        android:id="@+id/tv_date"
+        android:id="@+id/tv_plant_scientific"
+        android:textStyle="italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="4dp"
@@ -20,7 +21,7 @@
         android:textColor="#000"/>
 
     <TextView
-        android:id="@+id/tv_temp_description"
+        android:id="@+id/tv_plant_common"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="4dp"
@@ -28,23 +29,7 @@
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/tv_low_high_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:layout_marginLeft="12dp"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/tv_wind"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:layout_marginLeft="12dp"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/tv_humidity"
+        android:id="@+id/tv_plant_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="4dp"

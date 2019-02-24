@@ -5,7 +5,7 @@ public class WeatherPreferences {
     private static final String DEFAULT_TEMPERATURE_UNITS = "imperial";
     private static final String DEFAULT_TEMPERATURE_UNITS_ABBR = "F";
 
-    public static String getDefaultForecastLocation() {
+    public static String getDefaultPlantLocation() {
         return DEFAULT_FORECAST_LOCATION;
     }
 

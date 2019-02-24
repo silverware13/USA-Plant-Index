@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_weather_icon"
+            android:id="@+id/iv_plant_pic"
             android:padding="8dp"
             android:layout_width="72dp"
             android:layout_height="72dp" />
@@ -22,7 +22,8 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_forecast_date"
+                android:id="@+id/tv_plant_scientific"
+                android:textStyle="italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -30,7 +31,7 @@
                 android:textColor="#000"/>
 
             <TextView
-                android:id="@+id/tv_forecast_temp_description"
+                android:id="@+id/tv_plant_common"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"

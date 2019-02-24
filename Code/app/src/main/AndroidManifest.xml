@@ -21,7 +21,7 @@
         </activity>
 
         <activity
-            android:name=".ForecastItemDetailActivity"
+            android:name=".PlantItemDetailActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

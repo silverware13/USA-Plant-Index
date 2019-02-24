@@ -16,20 +16,20 @@ import android.widget.TextView;
 
 import com.example.android.lifecycleweather.data.WeatherPreferences;
 import com.example.android.lifecycleweather.utils.NetworkUtils;
-import com.example.android.lifecycleweather.utils.OpenWeatherMapUtils;
+import com.example.android.lifecycleweather.utils.USDAUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements ForecastAdapter.OnForecastItemClickListener {
+public class MainActivity extends AppCompatActivity implements PlantAdapter.OnPlantItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private TextView mForecastLocationTV;
-    private RecyclerView mForecastItemsRV;
+    private TextView mPlantLocationTV;
+    private RecyclerView mPlantItemsRV;
     private ProgressBar mLoadingIndicatorPB;
     private TextView mLoadingErrorMessageTV;
-    private ForecastAdapter mForecastAdapter;
+    private PlantAdapter mPlantAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,25 +39,25 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.O
         // Remove shadow under action bar.
         getSupportActionBar().setElevation(0);
 
-        mForecastLocationTV = findViewById(R.id.tv_forecast_location);
-        mForecastLocationTV.setText(WeatherPreferences.getDefaultForecastLocation());
+        mPlantLocationTV = findViewById(R.id.tv_forecast_location);
+        mPlantLocationTV.setText(WeatherPreferences.getDefaultPlantLocation());
 
         mLoadingIndicatorPB = findViewById(R.id.pb_loading_indicator);
         mLoadingErrorMessageTV = findViewById(R.id.tv_loading_error_message);
-        mForecastItemsRV = findViewById(R.id.rv_forecast_items);
+        mPlantItemsRV = findViewById(R.id.rv_forecast_items);
 
-        mForecastAdapter = new ForecastAdapter(this);
-        mForecastItemsRV.setAdapter(mForecastAdapter);
-        mForecastItemsRV.setLayoutManager(new LinearLayoutManager(this));
-        mForecastItemsRV.setHasFixedSize(true);
+        mPlantAdapter = new PlantAdapter(this);
+        mPlantItemsRV.setAdapter(mPlantAdapter);
+        mPlantItemsRV.setLayoutManager(new LinearLayoutManager(this));
+        mPlantItemsRV.setHasFixedSize(true);
 
-        loadForecast();
+        loadPlant();
     }
 
     @Override
-    public void onForecastItemClick(OpenWeatherMapUtils.ForecastItem forecastItem) {
-        Intent intent = new Intent(this, ForecastItemDetailActivity.class);
-        intent.putExtra(OpenWeatherMapUtils.EXTRA_FORECAST_ITEM, forecastItem);
+    public void onPlantItemClick(USDAUtils.PlantItem plantItem) {
+        Intent intent = new Intent(this, PlantItemDetailActivity.class);
+        intent.putExtra(USDAUtils.EXTRA_FORECAST_ITEM, plantItem);
         startActivity(intent);
     }
 
@@ -71,25 +71,25 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.O
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_location:
-                showForecastLocation();
+                showPlantLocation();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    public void loadForecast() {
-        String openWeatherMapForecastURL = OpenWeatherMapUtils.buildForecastURL(
-                WeatherPreferences.getDefaultForecastLocation(),
+    public void loadPlant() {
+        String openWeatherMapPlantURL = USDAUtils.buildPlantURL(
+                WeatherPreferences.getDefaultPlantLocation(),
                 WeatherPreferences.getDefaultTemperatureUnits()
         );
-        Log.d(TAG, "got forecast url: " + openWeatherMapForecastURL);
-        new OpenWeatherMapForecastTask().execute(openWeatherMapForecastURL);
+        Log.d(TAG, "got forecast url: " + openWeatherMapPlantURL);
+        new PlantTask().execute(openWeatherMapPlantURL);
     }
 
-    public void showForecastLocation() {
+    public void showPlantLocation() {
         Uri geoUri = Uri.parse("geo:0,0").buildUpon()
-                .appendQueryParameter("q", WeatherPreferences.getDefaultForecastLocation())
+                .appendQueryParameter("q", WeatherPreferences.getDefaultPlantLocation())
                 .build();
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, geoUri);
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.O
         }
     }
 
-    class OpenWeatherMapForecastTask extends AsyncTask<String, Void, String> {
+    class PlantTask extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -107,25 +107,25 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.O
         @Override
         protected String doInBackground(String... params) {
             String openWeatherMapURL = params[0];
-            String forecastJSON = null;
+            String plantJSON = null;
             try {
-                forecastJSON = NetworkUtils.doHTTPGet(openWeatherMapURL);
+                plantJSON = NetworkUtils.doHTTPGet(openWeatherMapURL);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return forecastJSON;
+            return plantJSON;
         }
 
         @Override
-        protected void onPostExecute(String forecastJSON) {
+        protected void onPostExecute(String plantJSON) {
             mLoadingIndicatorPB.setVisibility(View.INVISIBLE);
-            if (forecastJSON != null) {
+            if (plantJSON != null) {
                 mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
-                mForecastItemsRV.setVisibility(View.VISIBLE);
-                ArrayList<OpenWeatherMapUtils.ForecastItem> forecastItems = OpenWeatherMapUtils.parseForecastJSON(forecastJSON);
-                mForecastAdapter.updateForecastItems(forecastItems);
+                mPlantItemsRV.setVisibility(View.VISIBLE);
+                ArrayList<USDAUtils.PlantItem> plantItems = USDAUtils.parsePlantJSON(plantJSON);
+                mPlantAdapter.updatePlantItems(plantItems);
             } else {
-                mForecastItemsRV.setVisibility(View.INVISIBLE);
+                mPlantItemsRV.setVisibility(View.INVISIBLE);
                 mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
             }
         }
